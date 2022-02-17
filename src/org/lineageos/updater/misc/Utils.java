@@ -58,6 +58,7 @@ public class Utils {
     private static final String TAG = "Utils";
 
     private static String mTelegram;
+	private static String mBuildType;
 	
     private Utils() {
     }
@@ -92,6 +93,7 @@ public class Utils {
         update.setFileSize(object.getLong("size"));
         update.setDownloadUrl(object.getString("url"));
         update.setVersion(object.getString("version"));
+		mBuildType = object.getString("romtype");
 		        return update;
     }
 
@@ -152,19 +154,14 @@ public class Utils {
     }
 
     public static String getServerURL(Context context) {
-        String incrementalVersion = SystemProperties.get(Constants.PROP_BUILD_VERSION_INCREMENTAL);
+        String incrementalVersion = SystemProperties.get(Constants.PROP_BUILD_VERSION);
         String device = SystemProperties.get(Constants.PROP_NEXT_DEVICE,
                 SystemProperties.get(Constants.PROP_DEVICE));
-        String type = SystemProperties.get(Constants.PROP_RELEASE_TYPE).toLowerCase(Locale.ROOT);
 
-        String serverUrl = SystemProperties.get(Constants.PROP_UPDATER_URI);
-        if (serverUrl.trim().isEmpty()) {
-            serverUrl = context.getString(R.string.updater_server_url);
-        }
+        String serverUrl = context.getString(R.string.updater_server_url);
 
-        return serverUrl.replace("{device}", device)
-                .replace("{type}", type)
-                .replace("{incr}", incrementalVersion);
+        return serverUrl.replace("{incr}", incrementalVersion)
+                .replace("{device}", device);
     }
 
     public static String getUpgradeBlockedURL(Context context) {
@@ -407,7 +404,11 @@ public class Utils {
     }
 	
 	public static String getTelegram(Context context) {
-		mTelegram = context.getString(R.string.telegram_url));
+		mTelegram = context.getString(R.string.telegram_url);
         return mTelegram;
+    }
+	
+	public static String getBuildType() {
+        return mBuildType;
     }
 }

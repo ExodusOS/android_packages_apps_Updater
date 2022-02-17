@@ -474,7 +474,7 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         }
 		
 		ImageView telegramImage = findViewById(R.id.support_telegram);
-        String telegram = Utils.getTelegram();
+        String telegram = Utils.getTelegram(this);
         if (telegram == null || telegram.isEmpty()) {
             telegramImage.setVisibility(View.GONE);
         } else {
