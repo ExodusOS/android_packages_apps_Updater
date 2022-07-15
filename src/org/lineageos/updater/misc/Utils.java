@@ -57,7 +57,6 @@ public class Utils {
 
     private static final String TAG = "Utils";
 
-    private static String mTelegram;
 	private static String mBuildType;
 	
     private Utils() {
@@ -401,11 +400,6 @@ public class Utils {
 
     public static boolean isRecoveryUpdateExecPresent() {
         return new File(Constants.UPDATE_RECOVERY_EXEC).exists();
-    }
-	
-	public static String getTelegram(Context context) {
-		mTelegram = context.getString(R.string.telegram_url);
-        return mTelegram;
     }
 	
 	public static String getBuildType() {

@@ -474,10 +474,7 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         }
 		
 		ImageView telegramImage = findViewById(R.id.support_telegram);
-        String telegram = Utils.getTelegram(this);
-        if (telegram == null || telegram.isEmpty()) {
-            telegramImage.setVisibility(View.GONE);
-        } else {
+        String telegram = this.getString(R.string.telegram_url)
             telegramImage.setVisibility(View.VISIBLE);
             telegramImage.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -487,8 +484,7 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                     intent.setData(Uri.parse(telegram));
                     startActivity(intent);
                     }
-            });
-        }	
+            });	
     }
 
     private void handleDownloadStatusChange(String downloadId) {
