@@ -57,6 +57,8 @@ public class Utils {
 
     private static final String TAG = "Utils";
 
+    private static String mTelegram;
+	
     private Utils() {
     }
 
@@ -90,7 +92,7 @@ public class Utils {
         update.setFileSize(object.getLong("size"));
         update.setDownloadUrl(object.getString("url"));
         update.setVersion(object.getString("version"));
-        return update;
+		        return update;
     }
 
     public static boolean isCompatible(UpdateBaseInfo update) {
@@ -402,5 +404,10 @@ public class Utils {
 
     public static boolean isRecoveryUpdateExecPresent() {
         return new File(Constants.UPDATE_RECOVERY_EXEC).exists();
+    }
+	
+	public static String getTelegram(Context context) {
+		mTelegram = context.getString(R.string.telegram_url));
+        return mTelegram;
     }
 }

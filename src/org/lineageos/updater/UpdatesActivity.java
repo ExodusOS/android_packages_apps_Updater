@@ -41,6 +41,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -151,10 +153,6 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         TextView headerBuildVersion = findViewById(R.id.header_build_version);
         headerBuildVersion.setText(
                 getString(R.string.header_android_version, Build.VERSION.RELEASE));
-
-        TextView headerBuildDate = findViewById(R.id.header_build_date);
-        headerBuildDate.setText(StringGenerator.getDateLocalizedUTC(this,
-                DateFormat.LONG, BuildInfoUtils.getBuildDateTimestamp()));
 
         if (!mIsTV) {
             // Switch between header title and appbar title minimizing overlaps
@@ -460,6 +458,37 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                 StringGenerator.getTimeLocalized(this, lastCheck));
         TextView headerLastCheck = findViewById(R.id.header_last_check);
         headerLastCheck.setText(lastCheckString);
+		
+		TextView headerBuildDate = findViewById(R.id.header_build_date);
+        headerBuildDate.setText(getString(R.string.current_build_date, StringGenerator.getDateLocalizedUTC(this,
+                DateFormat.LONG, BuildInfoUtils.getBuildDateTimestamp())));
+		
+		TextView headerBuildType = findViewById(R.id.header_build_type);
+        String buildType = Utils.getBuildType();
+        if (buildType == null || buildType.isEmpty()) {
+                headerBuildType.setText(getString(R.string.build_type_unknown));
+                LinearLayout supportLayout=(LinearLayout)this.findViewById(R.id.support_icons);
+                supportLayout.setVisibility(LinearLayout.GONE);
+        } else {
+                headerBuildType.setText(getString(R.string.current_build_type, buildType));
+        }
+		
+		ImageView telegramImage = findViewById(R.id.support_telegram);
+        String telegram = Utils.getTelegram();
+        if (telegram == null || telegram.isEmpty()) {
+            telegramImage.setVisibility(View.GONE);
+        } else {
+            telegramImage.setVisibility(View.VISIBLE);
+            telegramImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(telegram));
+                    startActivity(intent);
+                    }
+            });
+        }	
     }
 
     private void handleDownloadStatusChange(String downloadId) {
