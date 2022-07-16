@@ -149,11 +149,45 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                 BuildInfoUtils.getBuildVersion()));
 
         updateLastCheckedString();
-
-        TextView headerBuildVersion = findViewById(R.id.header_build_version);
-        headerBuildVersion.setText(
-                getString(R.string.header_android_version, Build.VERSION.RELEASE));
-
+		
+		ImageView telegramImage = findViewById(R.id.support_telegram);
+        String telegram = this.getString(R.string.telegram_url);
+            telegramImage.setVisibility(View.VISIBLE);
+            telegramImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(telegram));
+                    startActivity(intent);
+                    }
+            });	
+		
+		ImageView githubImage = findViewById(R.id.support_github);
+        String github = this.getString(R.string.github_url);
+            githubImage.setVisibility(View.VISIBLE);
+            githubImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(github));
+                    startActivity(intent);
+                    }
+            });
+			
+		ImageView wwwImage = findViewById(R.id.support_www);
+        String www = this.getString(R.string.www_url);
+            wwwImage.setVisibility(View.VISIBLE);
+            wwwImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(www));
+                    startActivity(intent);
+                    }
+            });				
         if (!mIsTV) {
             // Switch between header title and appbar title minimizing overlaps
             final CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
@@ -459,6 +493,10 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         TextView headerLastCheck = findViewById(R.id.header_last_check);
         headerLastCheck.setText(lastCheckString);
 		
+		TextView headerBuildVersion = findViewById(R.id.header_build_version);
+        headerBuildVersion.setText(
+                getString(R.string.header_android_version, Build.VERSION.RELEASE));
+				
 		TextView headerBuildDate = findViewById(R.id.header_build_date);
         headerBuildDate.setText(getString(R.string.current_build_date, StringGenerator.getDateLocalizedUTC(this,
                 DateFormat.LONG, BuildInfoUtils.getBuildDateTimestamp())));
@@ -472,19 +510,6 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         } else {
                 headerBuildType.setText(getString(R.string.current_build_type, buildType));
         }
-		
-		ImageView telegramImage = findViewById(R.id.support_telegram);
-        String telegram = this.getString(R.string.telegram_url)
-            telegramImage.setVisibility(View.VISIBLE);
-            telegramImage.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse(telegram));
-                    startActivity(intent);
-                    }
-            });	
     }
 
     private void handleDownloadStatusChange(String downloadId) {
