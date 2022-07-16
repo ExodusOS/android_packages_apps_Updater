@@ -148,11 +148,8 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         headerTitle.setText(getString(R.string.header_title_text,
                 BuildInfoUtils.getBuildVersion()));
 
-        updateLastCheckedString();
-		
 		ImageView telegramImage = findViewById(R.id.support_telegram);
         String telegram = this.getString(R.string.telegram_url);
-            telegramImage.setVisibility(View.VISIBLE);
             telegramImage.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent();
@@ -165,7 +162,6 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
 		
 		ImageView githubImage = findViewById(R.id.support_github);
         String github = this.getString(R.string.github_url);
-            githubImage.setVisibility(View.VISIBLE);
             githubImage.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent();
@@ -178,7 +174,6 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
 			
 		ImageView wwwImage = findViewById(R.id.support_www);
         String www = this.getString(R.string.www_url);
-            wwwImage.setVisibility(View.VISIBLE);
             wwwImage.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent();
@@ -187,7 +182,10 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                     intent.setData(Uri.parse(www));
                     startActivity(intent);
                     }
-            });				
+            });
+
+        updateLastCheckedString();
+			
         if (!mIsTV) {
             // Switch between header title and appbar title minimizing overlaps
             final CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
